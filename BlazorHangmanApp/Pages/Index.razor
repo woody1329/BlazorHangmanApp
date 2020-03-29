@@ -3,14 +3,18 @@
 @inject Data.HangmanGameService tstservice
 
 <h1>Welcome to the hangman game!</h1>
-
+  
+<p class="text-left">
+    <input class="custom-checkbox" type="checkbox" @bind="@toggleWord" name="boolWordCheck" title="Check to reveal the word if you lose.">
+    <label  for="boolWordCheck"> Check to reveal the word if you lose.</label>
+</p>
 @*<p>@tstservice.Word</p>*@
 <h2 class="text-center">@tstservice.HungWord</h2>
 
 
 @if (tstservice.guessesLeft > 0)
 {
-    <p>You have @tstservice.guessesLeft guesses left</p>
+    <p class="text-left">You have @tstservice.guessesLeft guesses left</p>
     <p class="text-center">
 
         @foreach (char letter in tstservice.alphabet)
@@ -23,8 +27,10 @@
 @if (tstservice.guessesLeft == 0)
 {
     EndOfGame();
-<p>The word was @tstservice.Word, duh!</p>
-}
+    @if (toggleWord)
+    {<p>The word was @tstservice.Word, duh!</p>;
+        }
+    }
 @if (tstservice.guessesLeft == -1)
 {
     Winner();
@@ -34,6 +40,7 @@
 <h2>@loser</h2>
 
 @code{
+    bool toggleWord;
     string winner = "";
     string loser = "";
 
