@@ -1,0 +1,56 @@
+﻿@page "/"
+
+@inject Data.HangmanGameService tstservice
+
+<h1>Welcome to the hangman game!</h1>
+
+@*<p>@tstservice.Word</p>*@
+<p class="text-center">@tstservice.HungWord</p>
+<p>@tstservice.guessesLeft</p>
+
+@if (tstservice.guessesLeft > 0)
+{
+    <p class="text-center">
+
+        @foreach (char letter in tstservice.alphabet)
+        {
+            <button class="btn btn-primary" style="background-color: @tstservice.alphabetColorDict[letter]" @onclick="() => tstservice.ProcessCurrentLetterAsync(letter, tstservice.Word)">@letter.ToString()</button>
+        }
+    </p>
+}
+
+@if (tstservice.guessesLeft == 0)
+{
+    EndOfGame();
+}
+@if (tstservice.guessesLeft == -1)
+{
+    Winner();
+}
+
+<h1>@winner</h1>
+<h2>@loser</h2>
+
+@code{
+    string winner = "";
+    string loser = "";
+
+    public void EndOfGame()
+    {
+        loser = "Sorry you lost! Refresh the page to play again with a new word.";
+    }
+
+    public void Winner()
+    {
+        winner = "Congratulations, you are a winner!";
+    }
+
+    public void GuessedLetter(char letter, string wH)
+    {
+        if (!tstservice.gameOver)
+        {
+            tstservice.ProcessCurrentLetterAsync(letter, wH);
+        }
+    }
+}
+
