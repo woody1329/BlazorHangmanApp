@@ -28,7 +28,6 @@ namespace BlazorHangmanApp
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
             services.AddScoped<Data.HangmanGameService>();
         }
 

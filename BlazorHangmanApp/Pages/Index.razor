@@ -5,11 +5,12 @@
 <h1>Welcome to the hangman game!</h1>
 
 @*<p>@tstservice.Word</p>*@
-<p class="text-center">@tstservice.HungWord</p>
-<p>@tstservice.guessesLeft</p>
+<h2 class="text-center">@tstservice.HungWord</h2>
+
 
 @if (tstservice.guessesLeft > 0)
 {
+    <p>You have @tstservice.guessesLeft guesses left</p>
     <p class="text-center">
 
         @foreach (char letter in tstservice.alphabet)
